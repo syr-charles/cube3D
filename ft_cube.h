@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:27:05 by cdana             #+#    #+#             */
-/*   Updated: 2020/01/19 13:16:59 by cdana            ###   ########.fr       */
+/*   Updated: 2020/01/21 21:16:48 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
-#  define STEP 0.001
+#  define STEP 0.01
 
 typedef struct	s_mlx
 {
@@ -30,6 +30,10 @@ typedef struct	s_mlx
 	double		x;
 	double		y;
 	double		alpha;
+	void		*wall;
+	int			*w_ptr;
+	int			w_width;
+	int			w_height;
 }				t_mlx;
 
 int				ft_draw(t_mlx *f);

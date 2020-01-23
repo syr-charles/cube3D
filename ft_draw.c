@@ -6,17 +6,41 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:26:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/01/19 13:47:58 by cdana            ###   ########.fr       */
+/*   Updated: 2020/01/21 21:47:17 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
-#define FOV 80
-#define HEIGHT 300
+#define FOV 60
+#define HEIGHT 400
 
 static int	ft_rgb(int alpha, int red, int green, int blue)
 {
 	return (alpha << 24 | red << 16 | green << 8 | blue);
+}
+
+static int	ft_get_pxl_img(t_mlx *f, double *pos, char face, int y, int wall_len)
+{
+	int	off_y;
+	int	off_x;
+
+	y = y - f->res_y / 2 + wall_len;
+	off_y = (f->w_height * y / (2 * wall_len));
+	if (face == 'N' || face == 'S')
+		off_x = (int)(f->w_width * (pos[0] - floor(pos[0])));
+	else
+		off_x = (int)(f->w_width * (pos[1] - floor(pos[1])));
+	return (f->w_ptr[off_x + 128 * off_y]);
+
+	if (face == 'N')
+		return (ft_rgb(0, 0, 255, 0));
+	if (face == 'S')
+		return (ft_rgb(0, 255, 0, 0));
+	if (face == 'E')
+		return (ft_rgb(0, 0, 0, 255));
+	if (face == 'O')
+		return (ft_rgb(0, 255, 255, 0));
+	return (0);
 }
 
 static int	ft_draw_col(t_mlx *f, int *addr, int col, int sl)
@@ -35,12 +59,18 @@ static int	ft_draw_col(t_mlx *f, int *addr, int col, int sl)
 	y = 0;
 	while (y < f->res_y / 2 - wall_len && y < f->res_y)
 	{
-		addr[col + sl * y] = ft_rgb(0, 0, 0, 255);
+		addr[col + sl * y] = ft_rgb(0, 100, 255, 255);
 		y++;
 	}
 	while (y < f->res_y / 2 + wall_len && y < f->res_y)
 	{
-		addr[col + sl * y] = ft_rgb(0, 255, 255, 255);
+		//addr[col + sl * y] =  ft_rgb(0, 255 * (y - f->res_y / 2 + wall_len) / (2 * wall_len), 255, 255);
+		addr[col + sl * y] = ft_get_pxl_img(f, pos, face, y, wall_len);
+		y++;
+	}
+	while (y < f->res_y)
+	{
+		addr[col + sl * y] = ft_rgb(0, 100, 100, 100);
 		y++;
 	}
 	free(pos);

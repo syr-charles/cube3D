@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 18:05:06 by cdana             #+#    #+#             */
-/*   Updated: 2020/01/19 13:38:35 by cdana            ###   ########.fr       */
+/*   Updated: 2020/01/21 21:14:35 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int		ft_key_hook(int keycode, void *param)
 int		main(void)
 {
 	t_mlx	f;
+	int		i[5];
 
 	f.mlx = mlx_init();
 	f.res_x = 1000;
@@ -106,6 +107,10 @@ int		main(void)
 	f.win = mlx_new_window(f.mlx, f.res_x, f.res_y, "why are u gay?");
 	f.x = 4.5;
 	f.y = 3.5;
+	f.wall = mlx_png_file_to_image(f.mlx, "img/wall.png", &f.w_width, &f.w_height);
+	f.w_ptr = (int*)mlx_get_data_addr(f.wall, i, i + 1, i + 2);
+	printf("%d %d\n", f.w_width, f.w_height);
+	printf("%d %d %d\n", i[0], i[1], i[2]);
 	f.alpha = M_PI / 2;
 	if (ft_draw(&f) == 0)
 		write(1, "Error\n", 6);
