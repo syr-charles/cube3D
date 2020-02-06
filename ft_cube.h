@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:27:05 by cdana             #+#    #+#             */
-/*   Updated: 2020/01/21 21:16:48 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/06 18:14:45 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ typedef struct	s_mlx
 }				t_mlx;
 
 int				ft_draw(t_mlx *f);
-double			*ft_find_obstacle(char **grid, double x, double y, double alpha);
-char			ft_face(double alpha, double *pos);
+double			*ft_find_obstacle(t_mlx *f, double alpha, char *face);
 #endif

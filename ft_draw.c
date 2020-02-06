@@ -6,13 +6,13 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:26:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/01/21 21:47:17 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/06 18:37:24 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
-#define FOV 60
-#define HEIGHT 400
+#define FOV 500
+#define HEIGHT 250
 
 static int	ft_rgb(int alpha, int red, int green, int blue)
 {
@@ -31,7 +31,6 @@ static int	ft_get_pxl_img(t_mlx *f, double *pos, char face, int y, int wall_len)
 	else
 		off_x = (int)(f->w_width * (pos[1] - floor(pos[1])));
 	return (f->w_ptr[off_x + 128 * off_y]);
-
 	if (face == 'N')
 		return (ft_rgb(0, 0, 255, 0));
 	if (face == 'S')
@@ -51,11 +50,11 @@ static int	ft_draw_col(t_mlx *f, int *addr, int col, int sl)
 	char	face;
 	int		y;
 
-	beta = FOV * M_PI / 180 * (double)((col - f->res_x / 2)) / f->res_x;
-	if (!(pos = ft_find_obstacle(f->grid, f->x, f->y, f->alpha + beta)))
+	// beta = FOV * M_PI / 180 * (double)((col - f->res_x / 2)) / f->res_x;
+	beta = atan((double)(col - f->res_x / 2) / FOV);
+	if (!(pos = ft_find_obstacle(f, f->alpha + beta, &face)))
 		return (0);
-	wall_len = (int)(HEIGHT / (sqrt(pow(f->x - pos[0], 2) + pow(f->y - pos[1], 2)) * cos(beta)));
-	face = ft_face(f->alpha + beta, pos);
+	wall_len = (int)(HEIGHT / (pos[2] * cos(beta)));
 	y = 0;
 	while (y < f->res_y / 2 - wall_len && y < f->res_y)
 	{

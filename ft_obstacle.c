@@ -6,13 +6,13 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 18:05:06 by cdana             #+#    #+#             */
-/*   Updated: 2020/01/21 21:14:35 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/06 18:38:43 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
 
-double			*ft_find_obstacle(char **grid, double x, double y, double alpha)
+/*double			*ft_find_obstacle(char **grid, double x, double y, double alpha)
 {
 	double	*pos;
 	double	step_x;
@@ -36,7 +36,7 @@ double			*ft_find_obstacle(char **grid, double x, double y, double alpha)
 	}
 	return (pos);
 }
-
+*/
 static char		**ft_grid(void)
 {
 	char	**grid;
@@ -51,7 +51,7 @@ static char		**ft_grid(void)
 	grid[4] = "111111111";
 	return (grid);
 }
-
+/*
 char			ft_face(double alpha, double *pos)
 {
 	while (alpha < 0)
@@ -68,7 +68,7 @@ char			ft_face(double alpha, double *pos)
 		return ('N');
 	return ('S');
 }
-
+*/
 int		ft_key_hook(int keycode, void *param)
 {
 	t_mlx 	*f;
