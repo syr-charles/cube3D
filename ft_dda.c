@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 11:43:17 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/06 18:23:28 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/13 17:09:31 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static double	ft_dist(t_mlx *f, double alpha, int *side, double *pos)
 	return (dist[*side]);
 }
 
-double			*ft_find_obstacle(t_mlx *f, double alpha, char *face)
+double			*ft_find_obstacle(t_mlx *f, double alpha, int *face)
 {
 	double	*pos;
 	int		side;
@@ -51,17 +51,17 @@ double			*ft_find_obstacle(t_mlx *f, double alpha, char *face)
 	pos[2] = ft_dist(f, alpha, &side, pos);
 	if (side == 0)
 	{
-		if (alpha >= M_PI / 2 && alpha < 3 * M_PI / 2)
-			*face = 'O';
+		if (cos(alpha) < 0)
+			*face = WE;
 		else
-			*face = 'E';
+			*face = EA;
 	}
 	else
 	{
-		if (alpha < M_PI)
-			*face = 'N';
+		if (sin(alpha) > 0)
+			*face = NO;
 		else
-			*face = 'S';
+			*face = SO;
 	}
 	return (pos);
 }

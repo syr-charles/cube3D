@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:26:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/06 18:37:24 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/13 17:42:48 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,18 @@
 #define FOV 500
 #define HEIGHT 250
 
-static int	ft_rgb(int alpha, int red, int green, int blue)
-{
-	return (alpha << 24 | red << 16 | green << 8 | blue);
-}
-
-static int	ft_get_pxl_img(t_mlx *f, double *pos, char face, int y, int wall_len)
+static int	ft_get_pxl_img(t_mlx *f, double *pos, int face, int y, int wall_len)
 {
 	int	off_y;
 	int	off_x;
 
 	y = y - f->res_y / 2 + wall_len;
-	off_y = (f->w_height * y / (2 * wall_len));
-	if (face == 'N' || face == 'S')
-		off_x = (int)(f->w_width * (pos[0] - floor(pos[0])));
+	off_y = (f->w_height[face] * y / (2 * wall_len));
+	if (face == NO || face == SO)
+		off_x = (int)(f->w_width[face] * (pos[0] - floor(pos[0])));
 	else
-		off_x = (int)(f->w_width * (pos[1] - floor(pos[1])));
-	return (f->w_ptr[off_x + 128 * off_y]);
-	if (face == 'N')
-		return (ft_rgb(0, 0, 255, 0));
-	if (face == 'S')
-		return (ft_rgb(0, 255, 0, 0));
-	if (face == 'E')
-		return (ft_rgb(0, 0, 0, 255));
-	if (face == 'O')
-		return (ft_rgb(0, 255, 255, 0));
-	return (0);
+		off_x = (int)(f->w_width[face] * (pos[1] - floor(pos[1])));
+	return (f->w_ptr[face][off_x + f->w_sl[face] * off_y]);
 }
 
 static int	ft_draw_col(t_mlx *f, int *addr, int col, int sl)
@@ -47,10 +33,9 @@ static int	ft_draw_col(t_mlx *f, int *addr, int col, int sl)
 	int 	wall_len;
 	double	beta;
 	double	*pos;
-	char	face;
+	int		face;
 	int		y;
 
-	// beta = FOV * M_PI / 180 * (double)((col - f->res_x / 2)) / f->res_x;
 	beta = atan((double)(col - f->res_x / 2) / FOV);
 	if (!(pos = ft_find_obstacle(f, f->alpha + beta, &face)))
 		return (0);
@@ -58,18 +43,17 @@ static int	ft_draw_col(t_mlx *f, int *addr, int col, int sl)
 	y = 0;
 	while (y < f->res_y / 2 - wall_len && y < f->res_y)
 	{
-		addr[col + sl * y] = ft_rgb(0, 100, 255, 255);
+		addr[col + sl * y] = f->ceil_color;
 		y++;
 	}
 	while (y < f->res_y / 2 + wall_len && y < f->res_y)
 	{
-		//addr[col + sl * y] =  ft_rgb(0, 255 * (y - f->res_y / 2 + wall_len) / (2 * wall_len), 255, 255);
 		addr[col + sl * y] = ft_get_pxl_img(f, pos, face, y, wall_len);
 		y++;
 	}
 	while (y < f->res_y)
 	{
-		addr[col + sl * y] = ft_rgb(0, 100, 100, 100);
+		addr[col + sl * y] = f->floor_color;
 		y++;
 	}
 	free(pos);
