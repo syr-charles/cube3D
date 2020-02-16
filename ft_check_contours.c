@@ -6,11 +6,48 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:34:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/13 17:21:58 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/16 21:05:38 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
+
+static char	*ft_find_sprites(t_mlx *f)
+{
+	int		sprite_x[1000];
+	int		sprite_y[1000];
+	int		x;
+	int		y;
+
+	f->sprite_nb = 0;
+	y = 0;
+	while (f->grid[y])
+	{
+		x = 0;
+		while (f->grid[y][x])
+		{
+			if (f->grid[y][x] == '2')
+			{
+				sprite_x[f->sprite_nb] = x;
+				sprite_y[f->sprite_nb] = y;
+				f->sprite_nb++;
+			}
+			x++;
+		}
+		y++;
+	}
+	if (!(f->sprite_x = malloc(sizeof(int) * f->sprite_nb)) ||
+			!(f->sprite_y = malloc(sizeof(int) * f->sprite_nb)))
+		return ("Malloc error\n");
+	x = 0;
+	while (x < f->sprite_nb)
+	{
+		f->sprite_x[x] = sprite_x[x];
+		f->sprite_y[x] = sprite_y[x];
+		x++;
+	}
+	return (NULL);
+}
 
 static char	*ft_bottom_check(t_mlx *f, int x, int y)
 {
@@ -25,7 +62,7 @@ static char	*ft_bottom_check(t_mlx *f, int x, int y)
 			return ("Bottom hole in map");
 		i++;
 	}
-	return (NULL);
+	return (ft_find_sprites(f));
 }
 
 char		*ft_check_contours(t_mlx *f, int map_y)

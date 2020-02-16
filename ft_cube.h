@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:27:05 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/13 17:08:47 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/16 22:16:09 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # define BUFFER_SIZE 100
-# define MAX_X 1000
+# define MAX_X 1600
 # define MAX_Y 1000
 # define EA 0
 # define NO 1
@@ -47,6 +47,11 @@ typedef struct	s_mlx
 	int			w_width[4];
 	int			w_height[4];
 	int			w_sl[4];
+	double		*wall_dist;
+	double		*wall_angle;
+	int			sprite_nb;
+	int			*sprite_x;
+	int			*sprite_y;
 	void		*s;
 	int			*s_ptr;
 	int			s_width;
@@ -55,6 +60,8 @@ typedef struct	s_mlx
 }				t_mlx;
 
 int				ft_draw(t_mlx *f);
+int				ft_draw_sprites(t_mlx *f, int *addr, int sl);
+double			ft_circle(double alpha);
 double			*ft_find_obstacle(t_mlx *f, double alpha, int *face);
 int				ft_gnl(int fd, char **line);
 int				ft_rgb(int alpha, int red, int green, int blue);

@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:57:45 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/13 17:16:15 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/16 21:41:16 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,27 @@ static char	*ft_parse(t_mlx *f, char *line)
 	return (err);
 }
 
+static char	*ft_checker(t_mlx *f, char *err)
+{
+	if (err == NULL)
+	{
+		if (f->res_x < 300)
+			f->res_x = 300;
+		if (f->res_y < 300)
+			f->res_y = 300;
+		if (f->res_x > MAX_X)
+			f->res_x = MAX_X;
+		if (f->res_y > MAX_Y)
+			f->res_y = MAX_Y;
+		if (!(f->wall_dist = malloc(sizeof(double) * f->res_x)))
+			return ("Malloc error\n");
+		if (!(f->wall_angle = malloc(sizeof(double) * f->res_x)))
+			return ("Malloc error\n");
+		return (NULL);
+	}
+	return (err);
+}
+
 static char *ft_parser(t_mlx *f, int fd)
 {
 	char	*line;
@@ -64,7 +85,7 @@ static char *ft_parser(t_mlx *f, int fd)
 		free(line);
 	if (line[0] != '\0')
 		err = (err == NULL ? "Extra non empty line after map\n" : err);
-	return (err);
+	return (ft_checker(f, err));
 }
 
 static int	terminate(char *s)

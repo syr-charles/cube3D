@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:26:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/13 17:42:48 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/16 21:39:54 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	ft_draw_col(t_mlx *f, int *addr, int col, int sl)
 	beta = atan((double)(col - f->res_x / 2) / FOV);
 	if (!(pos = ft_find_obstacle(f, f->alpha + beta, &face)))
 		return (0);
+	f->wall_dist[col] = pos[2];
+	f->wall_angle[col] = f->alpha + beta;
 	wall_len = (int)(HEIGHT / (pos[2] * cos(beta)));
 	y = 0;
 	while (y < f->res_y / 2 - wall_len && y < f->res_y)
@@ -78,6 +80,7 @@ int			ft_draw(t_mlx *f)
 			return (0);
 		col++;
 	}
+	ft_draw_sprites(f, addr, info[1] / 4);
 	mlx_put_image_to_window(f->mlx, f->win, new, 0, 0);
 	if (f->frame)
 		mlx_destroy_image(f->mlx, f->frame);

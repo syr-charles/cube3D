@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 11:43:17 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/13 17:09:31 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/16 21:57:05 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,13 @@ double			*ft_find_obstacle(t_mlx *f, double alpha, int *face)
 	}
 	return (pos);
 }
+
+double			ft_circle(double alpha)
+{
+	while (alpha < -M_PI)
+		alpha = alpha + 2 * M_PI;
+	while (alpha > M_PI)
+		alpha = alpha - 2 * M_PI;
+	return (alpha);
+}
+
