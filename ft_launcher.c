@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:57:45 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 11:10:50 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/23 12:49:33 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,20 @@ static char *ft_parser(t_mlx *f, int fd)
 	return (ft_checker(f, err));
 }
 
-static int	ft_mlx_init(t_mlx *f, int fd)
+static int	ft_mlx_init(t_mlx *f, char **argv, int fd)
 {
 	char	*err;
+	int		i;
 
+	i = 0;
+	while (argv[1][i])
+		i++;
+	if (i < 4 || argv[1][i - 4] != '.' || argv[1][i - 3] != 'c'
+			|| argv[1][i - 2] != 'u' || argv[1][i - 1] != 'b')
+	{
+		close(fd);
+		return (ft_terminate(f, "Not a .cub file\n"));
+	}
 	if (!(f->mlx = mlx_init()))
 		return (ft_terminate(f, "Failed to init mlx\n"));
 	err = ft_parser(f, fd);
@@ -104,24 +114,19 @@ static int	ft_mlx_init(t_mlx *f, int fd)
 int			main(int argc, char **argv)
 {
 	int 	fd;
-	int		i;
 	t_mlx	*f;
 
 	if (!(f = malloc(sizeof(t_mlx))))
 		return (ft_terminate(f, "First malloc error\n"));
-	if (argc != 2)
+	ft_init(f);
+	f->type = 'G';
+	if (argc == 3 && argv[2][0] == '-' && argv[2][1] == '-' && argv[2][2] == 's'
+			&& argv[2][3] == 'a' && argv[2][4] == 'v' && argv[2][5] == 'e' && argv[2][6] == 0)
+		f->type = 'B';
+	if (argc != 2 && f->type == 'G')
 		return (ft_terminate(f, "Wrong number of arguments\n"));
-	i = 0;
-	while (argv[1][i])
-		i++;
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
 		return (ft_terminate(f, "No such file\n"));
-	if (i < 4 || argv[1][i - 4] != '.' || argv[1][i - 3] != 'c'
-			|| argv[1][i - 2] != 'u' || argv[1][i - 1] != 'b')
-	{
-		close(fd);
-		return (ft_terminate(f, "Not a .cub file\n"));
-	}
-	ft_mlx_init(f, fd);
+	ft_mlx_init(f, argv, fd);
 	return (ft_game_loop(f));
 }

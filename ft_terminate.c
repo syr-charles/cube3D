@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 10:56:21 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 11:30:02 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/23 12:50:58 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,24 @@ int			ft_terminate(t_mlx *f, char *err)
 		free(f);
 	}
 	exit(EXIT_SUCCESS);
+	return (1);
+}
+
+int			ft_init(t_mlx *f)
+{
+	f->mlx = NULL;
+	f->win = NULL;
+	f->wall[0] = NULL;
+	f->wall[1] = NULL;
+	f->wall[2] = NULL;
+	f->wall[3] = NULL;
+	f->s = NULL;
+	f->sp_an = NULL;
+	f->sp_dt = NULL;
+	f->od = NULL;
+	f->wall_dist = NULL;
+	f->wall_angle = NULL;
+	f->grid = NULL;
+	f->frame = NULL;
 	return (1);
 }

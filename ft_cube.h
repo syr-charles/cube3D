@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:27:05 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 11:09:50 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/23 12:49:50 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@
 
 typedef struct	s_mlx
 {
+	char		type;
 	int			res_x;
 	int			res_y;
 	void		*mlx;
 	void		*win;
 	void		*frame;
+	int			*addr;
+	int			sl;
 	char		**grid;
 	double		x;
 	double		y;
@@ -81,5 +84,7 @@ char			*ft_parse_c(t_mlx *f, char *line);
 char			*ft_parse_map(t_mlx *f, int fd, char *line);
 char			*ft_check_contours(t_mlx *f, int map_y);
 int				ft_game_loop(t_mlx *f);
+char			*ft_bmp(t_mlx *f);
+int				ft_init(t_mlx *f);
 int				ft_terminate(t_mlx *f, char *err);
 #endif 

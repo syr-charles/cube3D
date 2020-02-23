@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:26:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 10:24:55 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/23 12:26:41 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,12 @@ int			ft_draw(t_mlx *f)
 		col++;
 	}
 	ft_draw_sprites(f, addr, info[1] / 4);
-	mlx_put_image_to_window(f->mlx, f->win, new, 0, 0);
+	if (f->type == 'G')
+		mlx_put_image_to_window(f->mlx, f->win, new, 0, 0);
 	if (f->frame)
 		mlx_destroy_image(f->mlx, f->frame);
 	f->frame = new;
+	f->addr = addr;
+	f->sl = info[1] / 4;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:05:18 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 11:48:20 by cdana            ###   ########.fr       */
+/*   Updated: 2020/02/23 12:34:44 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,14 @@ int			ft_close(void *param)
 
 int		ft_game_loop(t_mlx *f)
 {
-	f->win = mlx_new_window(f->mlx, f->res_x, f->res_y, "cub3d");
 	f->frame = NULL;
+	if (f->type == 'B')
+	{
+		ft_draw(f);
+		ft_terminate(f, ft_bmp(f));
+		return (1);
+	}
+	f->win = mlx_new_window(f->mlx, f->res_x, f->res_y, "cub3d");
 	ft_draw(f);
 	mlx_hook(f->win, 2, (1L << 0), &ft_key_hook, (void*)f);
 	mlx_hook(f->win, 17, 0L, &ft_close, (void*)f);
