@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:27:05 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/16 22:16:09 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/23 11:09:50 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define BUFFER_SIZE 100
 # define MAX_X 1600
 # define MAX_Y 1000
+# define FOV 500
+# define HEIGHT 250
 # define EA 0
 # define NO 1
 # define WE 2
@@ -52,6 +54,9 @@ typedef struct	s_mlx
 	int			sprite_nb;
 	int			*sprite_x;
 	int			*sprite_y;
+	double		*sp_an;
+	double		*sp_dt;
+	int			*od;
 	void		*s;
 	int			*s_ptr;
 	int			s_width;
@@ -76,4 +81,5 @@ char			*ft_parse_c(t_mlx *f, char *line);
 char			*ft_parse_map(t_mlx *f, int fd, char *line);
 char			*ft_check_contours(t_mlx *f, int map_y);
 int				ft_game_loop(t_mlx *f);
+int				ft_terminate(t_mlx *f, char *err);
 #endif 

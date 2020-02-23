@@ -6,13 +6,11 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:26:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/16 21:39:54 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/23 10:24:55 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
-#define FOV 500
-#define HEIGHT 250
 
 static int	ft_get_pxl_img(t_mlx *f, double *pos, int face, int y, int wall_len)
 {

@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:57:45 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/16 21:41:16 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/23 11:10:50 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,43 +88,40 @@ static char *ft_parser(t_mlx *f, int fd)
 	return (ft_checker(f, err));
 }
 
-static int	terminate(char *s)
+static int	ft_mlx_init(t_mlx *f, int fd)
 {
-	int		i;
+	char	*err;
 
-	i = 0;
-	while (s[i])
-		i++;
-	write(1, "Error\n", 6);
-	write(1, s, i);
-	return (-1);
+	if (!(f->mlx = mlx_init()))
+		return (ft_terminate(f, "Failed to init mlx\n"));
+	err = ft_parser(f, fd);
+	close(fd);
+	if (err)
+		return (ft_terminate(f, err));
+	return (1);
 }
 
 int			main(int argc, char **argv)
 {
 	int 	fd;
 	int		i;
-	char	*ret;
-	t_mlx	f;
+	t_mlx	*f;
 
+	if (!(f = malloc(sizeof(t_mlx))))
+		return (ft_terminate(f, "First malloc error\n"));
 	if (argc != 2)
-		return (terminate("Wrong number of arguments\n"));
+		return (ft_terminate(f, "Wrong number of arguments\n"));
 	i = 0;
 	while (argv[1][i])
 		i++;
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
-		return (terminate("No such file\n"));
+		return (ft_terminate(f, "No such file\n"));
 	if (i < 4 || argv[1][i - 4] != '.' || argv[1][i - 3] != 'c'
 			|| argv[1][i - 2] != 'u' || argv[1][i - 1] != 'b')
 	{
 		close(fd);
-		return (terminate("Not a .cub file\n"));
+		return (ft_terminate(f, "Not a .cub file\n"));
 	}
-	if (!(f.mlx = mlx_init()))
-		return (terminate("Failed to init mlx\n"));
-	ret = ft_parser(&f, fd);
-	close(fd);
-	if (ret)
-		return (terminate(ret));
-	return (ft_game_loop(&f));
+	ft_mlx_init(f, fd);
+	return (ft_game_loop(f));
 }

@@ -6,11 +6,32 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:34:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/16 21:05:38 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/23 10:51:03 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
+
+static char	*ft_fill_sprites(t_mlx *f, int *sprite_x, int *sprite_y)
+{
+	int		i;
+
+	if (!(f->sprite_x = malloc(sizeof(int) * f->sprite_nb)) ||
+			!(f->sprite_y = malloc(sizeof(int) * f->sprite_nb)))
+		return ("Malloc error\n");
+	if (!(f->sp_an = malloc(sizeof(double) * f->sprite_nb)) ||
+			!(f->sp_dt = malloc(sizeof(double) * f->sprite_nb)) ||
+			!(f->od = malloc(sizeof(int) *f->sprite_nb)))
+		return("Malloc error\n");
+	i = 0;
+	while (i < f->sprite_nb)
+	{
+		f->sprite_x[i] = sprite_x[i];
+		f->sprite_y[i] = sprite_y[i];
+		i++;
+	}
+	return (NULL);
+}
 
 static char	*ft_find_sprites(t_mlx *f)
 {
@@ -36,17 +57,7 @@ static char	*ft_find_sprites(t_mlx *f)
 		}
 		y++;
 	}
-	if (!(f->sprite_x = malloc(sizeof(int) * f->sprite_nb)) ||
-			!(f->sprite_y = malloc(sizeof(int) * f->sprite_nb)))
-		return ("Malloc error\n");
-	x = 0;
-	while (x < f->sprite_nb)
-	{
-		f->sprite_x[x] = sprite_x[x];
-		f->sprite_y[x] = sprite_y[x];
-		x++;
-	}
-	return (NULL);
+	return (ft_fill_sprites(f, &sprite_x[0], &sprite_y[0]));
 }
 
 static char	*ft_bottom_check(t_mlx *f, int x, int y)
