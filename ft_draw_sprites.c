@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 19:36:07 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 10:51:41 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/23 16:23:37 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static int		ft_draw_col(t_mlx *f, int col, int *addr, int sl)
 			y = 0;
 			while (y < f->res_y)
 			{
-				dy = 0.5 + 0.0012 * f->sp_dt[f->od[i]] * (y - f->res_y / 2);
+				dy = 0.5 + 0.0020 * f->sp_dt[f->od[i]] * (y - f->res_y / 2);
 				if (dy >= 0 && dy <= 1)
 					if ((pxl = f->s_ptr[(int)(f->s_width * dx) + f->s_sl * (int)(f->s_height * dy)]) != 0)
 						addr[col + sl * y] = pxl;
