@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 12:19:21 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/13 17:49:04 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/27 12:19:15 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char		*ft_parse_f(t_mlx *f, char *line)
 	if (line[i] != ',')
 		return ("Wrong delimiter floor\n");
 	i++;
-	col[2] = ft_atoi(line, &i); 
+	col[2] = ft_atoi(line, &i);
 	if (col[2] < 0 || col[2] > 255)
 		return ("Wrong value floor blue\n");
 	if (line[i])
@@ -104,7 +104,7 @@ char		*ft_parse_c(t_mlx *f, char *line)
 	if (line[i] != ',')
 		return ("Wrong delimiter ceil\n");
 	i++;
-	col[2] = ft_atoi(line, &i); 
+	col[2] = ft_atoi(line, &i);
 	if (col[2] < 0 || col[2] > 255)
 		return ("Wrong value ceil blue\n");
 	if (line[i])

@@ -6,13 +6,13 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:27:05 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 12:49:50 by cdana            ###   ########.fr       */
+/*   Updated: 2020/02/27 12:10:57 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CUBE_H
 # define FT_CUBE_H
-# include "mlx.h"
+# include <mlx.h>
 # include <math.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -22,8 +22,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # define BUFFER_SIZE 100
-# define MAX_X 1600
-# define MAX_Y 1000
+# define MAX_X 2560
+# define MAX_Y 1440
 # define FOV 500
 # define HEIGHT 250
 # define EA 0
@@ -45,6 +45,7 @@ typedef struct	s_mlx
 	double		x;
 	double		y;
 	double		alpha;
+	int			face;
 	int			floor_color;
 	int			ceil_color;
 	void		*wall[4];
@@ -68,9 +69,9 @@ typedef struct	s_mlx
 }				t_mlx;
 
 int				ft_draw(t_mlx *f);
-int				ft_draw_sprites(t_mlx *f, int *addr, int sl);
+int				ft_draw_sprites(t_mlx *f);
 double			ft_circle(double alpha);
-double			*ft_find_obstacle(t_mlx *f, double alpha, int *face);
+double			*ft_find_obstacle(t_mlx *f, double alpha);
 int				ft_gnl(int fd, char **line);
 int				ft_rgb(int alpha, int red, int green, int blue);
 char			*ft_parse_no(t_mlx *f, char *line);
@@ -87,4 +88,4 @@ int				ft_game_loop(t_mlx *f);
 char			*ft_bmp(t_mlx *f);
 int				ft_init(t_mlx *f);
 int				ft_terminate(t_mlx *f, char *err);
-#endif 
+#endif

@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 12:06:59 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 16:20:49 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/27 13:15:42 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,24 @@
 
 void		ft_write_data(t_mlx *f, int fd)
 {
-	int				i;
-	int				j;
+	int				x;
+	int				y;
 	unsigned char	buffer[4];
 
-	i = f->res_x * (f->res_y - 1);
-	while (i >= 0)
+	y = f->res_y - 1;
+	while (y >= 0)
 	{
-		j = 0;
-		while (j < f->res_x)
+		x = 0;
+		while (x < f->res_x)
 		{
-			buffer[0] = (unsigned char)(f->addr[i] % 256);
-			buffer[1] = (unsigned char)(f->addr[i] / 256 % 256);
-			buffer[2] = (unsigned char)(f->addr[i] / 256 / 256 % 256);
+			buffer[0] = (unsigned char)(f->addr[x + f->sl * y] % 256);
+			buffer[1] = (unsigned char)(f->addr[x + f->sl * y] / 256 % 256);
+			buffer[2] = (unsigned char)(f->addr[x + f->sl * y] / 256 / 256 % 256);
 			buffer[3] = (unsigned char)(0);
 			write(fd, buffer, 4);
-			i++;
-			j++;
+			x++;
 		}
-		i -= 2 * f->res_x;
+		y--;
 	}
 }
 

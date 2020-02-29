@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:57:45 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 12:49:33 by cdana            ###   ########.fr       */
+/*   Updated: 2020/02/27 12:45:25 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*ft_checker(t_mlx *f, char *err)
 	return (err);
 }
 
-static char *ft_parser(t_mlx *f, int fd)
+static char	*ft_parser(t_mlx *f, int fd)
 {
 	char	*line;
 	int		ret;
@@ -78,7 +78,7 @@ static char *ft_parser(t_mlx *f, int fd)
 	if (err)
 		return (err);
 	if (!f->res_x || !f->res_y || !f->floor_color || !f->ceil_color
-			|| !f->wall[0] || !f->wall[1] || !f->wall[2] || !f->wall[3] || !f->s)
+		|| !f->wall[0] || !f->wall[1] || !f->wall[2] || !f->wall[3] || !f->s)
 		return ("Incomplete .cub \n");
 	err = ft_parse_map(f, fd, line);
 	while ((ret = ft_gnl(fd, &line)) > 0 && line[0] == '\0')
@@ -113,7 +113,7 @@ static int	ft_mlx_init(t_mlx *f, char **argv, int fd)
 
 int			main(int argc, char **argv)
 {
-	int 	fd;
+	int		fd;
 	t_mlx	*f;
 
 	if (!(f = malloc(sizeof(t_mlx))))
@@ -121,7 +121,8 @@ int			main(int argc, char **argv)
 	ft_init(f);
 	f->type = 'G';
 	if (argc == 3 && argv[2][0] == '-' && argv[2][1] == '-' && argv[2][2] == 's'
-			&& argv[2][3] == 'a' && argv[2][4] == 'v' && argv[2][5] == 'e' && argv[2][6] == 0)
+			&& argv[2][3] == 'a' && argv[2][4] == 'v' && argv[2][5] == 'e'
+			&& argv[2][6] == 0)
 		f->type = 'B';
 	if (argc != 2 && f->type == 'G')
 		return (ft_terminate(f, "Wrong number of arguments\n"));

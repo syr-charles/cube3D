@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:34:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 10:51:03 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/27 11:36:33 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static char	*ft_fill_sprites(t_mlx *f, int *sprite_x, int *sprite_y)
 		return ("Malloc error\n");
 	if (!(f->sp_an = malloc(sizeof(double) * f->sprite_nb)) ||
 			!(f->sp_dt = malloc(sizeof(double) * f->sprite_nb)) ||
-			!(f->od = malloc(sizeof(int) *f->sprite_nb)))
-		return("Malloc error\n");
+			!(f->od = malloc(sizeof(int) * f->sprite_nb)))
+		return ("Malloc error\n");
 	i = 0;
 	while (i < f->sprite_nb)
 	{

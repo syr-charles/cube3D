@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 19:36:07 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 16:23:37 by cdana            ###   ########.fr       */
+/*   Updated: 2020/02/27 12:15:17 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,47 +76,51 @@ static int		ft_compute_order(t_mlx *f)
 	return (1);
 }
 
-static int		ft_draw_col(t_mlx *f, int col, int *addr, int sl)
+static int		ft_draw_sprite_col(t_mlx *f, int col, int i)
 {
-	int		i;
 	int		y;
 	int		pxl;
 	double	dx;
 	double	dy;
 
-	i = 0;
-	while (i < f->sprite_nb && f->wall_dist[col] > f->sp_dt[f->od[i]])
-		i++;
-	while (i > 0)
+	dx = ft_circle(f->sp_an[f->od[i]] - f->wall_angle[col])
+						/ cos(f->wall_angle[col] - f->alpha);
+	if (fabs(dx) < M_PI / 2 &&
+				(dx = 0.5 + tan(dx) * f->sp_dt[f->od[i]]) >= 0 && dx <= 1)
 	{
-		i--;
-		dx = ft_circle(f->sp_an[f->od[i]] - f->wall_angle[col]) / cos(f->wall_angle[col] - f->alpha);
-		if (fabs(dx) < M_PI / 2 && (dx = 0.5 + tan(dx) * f->sp_dt[f->od[i]]) >= 0 && dx <= 1)
+		y = 0;
+		while (y < f->res_y)
 		{
-			y = 0;
-			while (y < f->res_y)
-			{
-				dy = 0.5 + 0.0020 * f->sp_dt[f->od[i]] * (y - f->res_y / 2);
-				if (dy >= 0 && dy <= 1)
-					if ((pxl = f->s_ptr[(int)(f->s_width * dx) + f->s_sl * (int)(f->s_height * dy)]) != 0)
-						addr[col + sl * y] = pxl;
-				y++;
-			}
+			dy = 0.5 + 0.0020 * f->sp_dt[f->od[i]] * (y - f->res_y / 2);
+			if (dy >= 0 && dy <= 1)
+				if ((pxl = f->s_ptr[(int)(f->s_width * dx)
+					+ f->s_sl * (int)(f->s_height * dy)]) != 0)
+					f->addr[col + f->sl * y] = pxl;
+			y++;
 		}
 	}
 	return (1);
 }
 
-int				ft_draw_sprites(t_mlx *f, int *addr, int sl)
+int				ft_draw_sprites(t_mlx *f)
 {
 	int		x;
+	int		i;
 
-	if (!(ft_compute_distances(f)) || !(ft_compute_angle(f)) || !(ft_compute_order(f)))
+	if (!(ft_compute_distances(f)) ||
+				!(ft_compute_angle(f)) || !(ft_compute_order(f)))
 		return (0);
 	x = 0;
 	while (x < f->res_x)
 	{
-		ft_draw_col(f, x, addr, sl);
+		i = 0;
+		while (i < f->sprite_nb && f->wall_dist[x] > f->sp_dt[f->od[i]])
+			i++;
+		while (i > 0)
+		{
+			i--;
+			ft_draw_sprite_col(f, x, i);
+		}
 		x++;
 	}
 	return (1);

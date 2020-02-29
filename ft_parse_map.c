@@ -6,13 +6,13 @@
 /*   By: charles <cdana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:38:08 by charles           #+#    #+#             */
-/*   Updated: 2020/02/13 17:16:57 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/27 12:37:33 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
 
-static int	ft_line_length(char *line)
+static int		ft_line_length(char *line)
 {
 	int		i;
 	int		len;
@@ -78,35 +78,35 @@ static char		*ft_check_map(t_mlx *f, int map_y)
 	return ((f->x == 0 ? "No initial position" : ft_check_contours(f, map_y)));
 }
 
-static char	*ft_parse_line(char *line, int map_x)
+static char		*ft_parse_lines(t_mlx *f, char **lines, int map_x, int map_y)
 {
 	char	*out;
 	int		i;
 	int		j;
+	int		id;
 
-	if (!(out = malloc(map_x + 1)))
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (line[i])
+	id = 0;
+	while (id < map_y)
 	{
-		if (line[i] != ' ')
+		if (!(out = malloc(map_x + 1)))
+			return ("Alloc error\n");
+		i = 0;
+		j = 0;
+		while (lines[id][i])
 		{
-			out[j] = line[i];
-			j++;
+			if (lines[id][i] != ' ')
+				out[j++] = lines[id][i];
+			i++;
 		}
-		i++;
+		while (j <= map_x)
+			out[j++] = '\0';
+		f->grid[id] = out;
+		free(lines[id++]);
 	}
-	while (j <= map_x)
-	{
-		out[j] = '\0';
-		j++;
-	}
-	free(line);
-	return (out);
+	return (NULL);
 }
 
-char		*ft_parse_map(t_mlx *f, int fd, char *line)
+char			*ft_parse_map(t_mlx *f, int fd, char *line)
 {
 	int		ret;
 	int		map_x;
@@ -117,7 +117,7 @@ char		*ft_parse_map(t_mlx *f, int fd, char *line)
 	if (!line || line[0] != '1' || (map_x = ft_line_length(line)) == -1)
 		return ("First line map error\n");
 	base[0] = line;
-	while ((ret = ft_gnl(fd , &line)) > -1 && line[0] == '1')
+	while ((ret = ft_gnl(fd, &line)) > -1 && line[0] == '1')
 	{
 		if ((ret = ft_line_length(line)) == -1)
 			return ("Line error\n");
@@ -129,12 +129,8 @@ char		*ft_parse_map(t_mlx *f, int fd, char *line)
 	free(line);
 	if (!(f->grid = malloc(sizeof(char*) * (map_y + 1))))
 		return ("Allocation error\n");
-	ret = 0;
-	while (ret < map_y)
-	{
-		f->grid[ret] = ft_parse_line(base[ret], map_x);
-		ret++;
-	}
 	f->grid[map_y] = NULL;
+	if (ft_parse_lines(f, base, map_x, map_y))
+		return ("Allocation error\n");
 	return (ft_check_map(f, map_y));
 }

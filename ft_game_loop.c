@@ -6,13 +6,13 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:05:18 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 12:34:44 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/27 12:16:24 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube.h"
 
-int		ft_rgb(int alpha, int red, int green, int blue)
+int			ft_rgb(int alpha, int red, int green, int blue)
 {
 	return (alpha << 24 | red << 16 | green << 8 | blue);
 }
@@ -47,7 +47,7 @@ static int	ft_move_character(int keycode, t_mlx *f)
 
 int			ft_key_hook(int keycode, void *param)
 {
-	t_mlx 	*f;
+	t_mlx		*f;
 
 	f = (t_mlx*)param;
 	if (keycode == 53)
@@ -70,7 +70,7 @@ int			ft_close(void *param)
 	return (1);
 }
 
-int		ft_game_loop(t_mlx *f)
+int			ft_game_loop(t_mlx *f)
 {
 	f->frame = NULL;
 	if (f->type == 'B')
