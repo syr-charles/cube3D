@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 10:56:21 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/23 12:50:58 by charles          ###   ########.fr       */
+/*   Updated: 2020/02/29 15:58:37 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ static int	ft_free_textures(t_mlx *f)
 		free(f->wall_dist);
 	if (f->wall_angle)
 		free(f->wall_angle);
+	if (f->sprite_x)
+		free(f->sprite_x);
+	if (f->sprite_y)
+		free(f->sprite_y);
 	return (1);
 }
 
@@ -83,6 +87,7 @@ int			ft_terminate(t_mlx *f, char *err)
 		ft_free_mlx(f);
 		free(f);
 	}
+	system("leaks cub3d");
 	exit(EXIT_SUCCESS);
 	return (1);
 }
@@ -103,5 +108,9 @@ int			ft_init(t_mlx *f)
 	f->wall_angle = NULL;
 	f->grid = NULL;
 	f->frame = NULL;
+	f->x = 0;
+	f->y = 0;
+	f->sprite_x = NULL;
+	f->sprite_y = NULL;
 	return (1);
 }

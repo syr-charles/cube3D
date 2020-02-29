@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:57:45 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/27 12:45:25 by cdana            ###   ########.fr       */
+/*   Updated: 2020/02/29 15:59:26 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ static char	*ft_parser(t_mlx *f, int fd)
 	char	*err;
 
 	err = NULL;
-	f->x = 0;
-	f->y = 0;
 	while ((ret = ft_gnl(fd, &line)) > 0 && err == NULL && line[0] != '1')
 	{
 		err = ft_parse(f, line);
@@ -85,6 +83,7 @@ static char	*ft_parser(t_mlx *f, int fd)
 		free(line);
 	if (line[0] != '\0')
 		err = (err == NULL ? "Extra non empty line after map\n" : err);
+	free(line);
 	return (ft_checker(f, err));
 }
 
