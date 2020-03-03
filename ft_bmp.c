@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 12:06:59 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/27 13:15:42 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/03 15:24:37 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void		ft_write_data(t_mlx *f, int fd)
 		{
 			buffer[0] = (unsigned char)(f->addr[x + f->sl * y] % 256);
 			buffer[1] = (unsigned char)(f->addr[x + f->sl * y] / 256 % 256);
-			buffer[2] = (unsigned char)(f->addr[x + f->sl * y] / 256 / 256 % 256);
+			buffer[2] = (unsigned char)(f->addr[x + f->sl * y]
+														/ 256 / 256 % 256);
 			buffer[3] = (unsigned char)(0);
 			write(fd, buffer, 4);
 			x++;
@@ -44,7 +45,7 @@ void		ft_write_info(t_mlx *f, int fd)
 	while (n < 40)
 		header[n++] = (unsigned char)(0);
 	header[0] = (unsigned char)(40);
-	n = f->res_x; 
+	n = f->res_x;
 	header[4] = (unsigned char)(n % 256);
 	header[5] = (unsigned char)(n / 256 % 256);
 	header[6] = (unsigned char)(n / 256 / 256 % 256);
@@ -84,7 +85,8 @@ char		*ft_bmp(t_mlx *f)
 
 	if (!f->frame)
 		return ("Image failed to initialize\n");
-	if ((fd = open("screenshot.bmp", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR)) < 1)
+	if ((fd = open("screenshot.bmp", O_RDWR | O_CREAT | O_TRUNC,
+												S_IRUSR | S_IWUSR)) < 1)
 		return ("Can't create new file\n");
 	ft_write_file(f, fd);
 	ft_write_info(f, fd);

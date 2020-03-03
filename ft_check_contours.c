@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:34:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/27 11:36:33 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/03 16:30:48 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,16 @@ char		*ft_check_contours(t_mlx *f, int map_y)
 	if (f->grid[y + 1] || y + 1 != map_y)
 		return ("Wrong end of map\n");
 	return (ft_bottom_check(f, x, y));
+}
+
+int		ft_find(char c, char *s)
+{
+	int		i;
+
+	if (!s || !c)
+		return (-1);
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	return (s[i] == c);
 }

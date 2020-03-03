@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:05:18 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/27 12:16:24 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/03 16:12:49 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static int	ft_move_character(int keycode, t_mlx *f)
 	{
 		new_x = f->x + cos(f->alpha + beta) * 0.1;
 		new_y = f->y - sin(f->alpha + beta) * 0.1;
-		if (f->grid[(int)new_y][(int)new_x] != '1')
+		if (f->grid[(int)new_y][(int)new_x] != '1' &&
+			f->grid[(int)new_y][(int)new_x] != '2')
 		{
 			f->x = new_x;
 			f->y = new_y;

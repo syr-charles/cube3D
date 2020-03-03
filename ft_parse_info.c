@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 12:19:21 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/27 12:19:15 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/03 16:17:40 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*ft_parse_r(t_mlx *f, char *line)
 {
 	int		i;
 
-	if (line[0] == '\0' || line[0] != 'R')
+	if (line[0] == '\0' || line[0] != 'R' || f->res_x != -1)
 		return ("Wrong call\n");
 	i = 1;
 	f->res_x = ft_atoi(line, &i);
@@ -60,7 +60,7 @@ char		*ft_parse_f(t_mlx *f, char *line)
 	int		i;
 	int		col[3];
 
-	if (line[0] == '\0' || line[0] != 'F')
+	if (line[0] == '\0' || line[0] != 'F' || f->floor_color != -1)
 		return ("Wrong call\n");
 	i = 1;
 	col[0] = ft_atoi(line, &i);
@@ -89,7 +89,7 @@ char		*ft_parse_c(t_mlx *f, char *line)
 	int		i;
 	int		col[3];
 
-	if (line[0] == '\0' || line[0] != 'C')
+	if (line[0] == '\0' || line[0] != 'C' || f->ceil_color != -1)
 		return ("Wrong call\n");
 	i = 1;
 	col[0] = ft_atoi(line, &i);

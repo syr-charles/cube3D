@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 10:56:21 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/29 15:58:37 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/03 15:40:37 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,10 @@ static int	ft_free_textures(t_mlx *f)
 {
 	int		i;
 
-	i = 0;
-	while (i < 4)
-	{
+	i = -1;
+	while (++i < 4)
 		if (f->wall[i] && f->mlx)
 			mlx_destroy_image(f->mlx, f->wall[i]);
-		i++;
-	}
 	if (f->s && f->mlx)
 		mlx_destroy_image(f->mlx, f->s);
 	if (f->sp_an)
@@ -112,5 +109,8 @@ int			ft_init(t_mlx *f)
 	f->y = 0;
 	f->sprite_x = NULL;
 	f->sprite_y = NULL;
+	f->res_x = -1;
+	f->floor_color = -1;
+	f->ceil_color = -1;
 	return (1);
 }

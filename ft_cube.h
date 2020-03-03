@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:27:05 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/27 12:10:57 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/03 16:31:01 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ char			*ft_parse_map(t_mlx *f, int fd, char *line);
 char			*ft_check_contours(t_mlx *f, int map_y);
 int				ft_game_loop(t_mlx *f);
 char			*ft_bmp(t_mlx *f);
+int				ft_find(char c, char *s);
 int				ft_init(t_mlx *f);
 int				ft_terminate(t_mlx *f, char *err);
 #endif

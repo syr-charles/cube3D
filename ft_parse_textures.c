@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:49:34 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/27 12:40:24 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/03 16:17:29 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char		*ft_parse_no(t_mlx *f, char *line)
 
 	if (line[0] == '\0' || line[0] != 'N' || line[1] != 'O')
 		return ("Wrong call NO\n");
+	if(f->wall[NO] != NULL)
+		return ("Double call\n");
 	i = 2;
 	while (line[i] == ' ')
 		i++;
@@ -46,6 +48,8 @@ char		*ft_parse_so(t_mlx *f, char *line)
 
 	if (line[0] == '\0' || line[0] != 'S' || line[1] != 'O')
 		return ("Wrong call SO\n");
+	if(f->wall[SO] != NULL)
+		return ("Double call\n");
 	i = 2;
 	while (line[i] == ' ')
 		i++;
@@ -72,6 +76,8 @@ char		*ft_parse_we(t_mlx *f, char *line)
 
 	if (line[0] == '\0' || line[0] != 'W' || line[1] != 'E')
 		return ("Wrong call WE\n");
+	if(f->wall[WE] != NULL)
+		return ("Double call\n");
 	i = 2;
 	while (line[i] == ' ')
 		i++;
@@ -98,6 +104,8 @@ char		*ft_parse_ea(t_mlx *f, char *line)
 
 	if (line[0] == '\0' || line[0] != 'E' || line[1] != 'A')
 		return ("Wrong call EA\n");
+	if(f->wall[EA] != NULL)
+		return ("Double call\n");
 	i = 2;
 	while (line[i] == ' ')
 		i++;
@@ -124,6 +132,8 @@ char		*ft_parse_s(t_mlx *f, char *line)
 
 	if (line[0] == '\0' || line[0] != 'S' || line[1] == 'O')
 		return ("Wrong call Sprite\n");
+	if(f->s != NULL)
+		return ("Double call\n");
 	i = 2;
 	while (line[i] == ' ')
 		i++;
