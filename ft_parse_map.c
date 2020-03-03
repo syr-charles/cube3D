@@ -6,7 +6,7 @@
 /*   By: charles <cdana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:38:08 by charles           #+#    #+#             */
-/*   Updated: 2020/03/03 17:21:28 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/03 17:23:22 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int		ft_line_length(char *line, char **base, int nb)
 	len = 0;
 	while (line[i])
 	{
-		if (ft_find(line[i], " 012NSEW") < 1 || (line[i + 1] != ' ' && line[i + 1] != '\0'))
+		if (ft_find(line[i], " 012NSEW") < 1
+		|| (line[i + 1] != ' ' && line[i + 1] != '\0'))
 		{
 			while (nb >= 0)
 				free(base[nb--]);
@@ -97,7 +98,7 @@ static char		*ft_parse_lines(t_mlx *f, char **lines, int map_x, int map_y)
 		{
 			out[j++] = lines[id][i];
 			if (lines[id][i + 1] == '\0')
-				break;
+				break ;
 			i += 2;
 		}
 		while (j <= map_x)

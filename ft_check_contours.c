@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:34:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/03 16:30:48 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/03 17:30:43 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char		*ft_check_contours(t_mlx *f, int map_y)
 	return (ft_bottom_check(f, x, y));
 }
 
-int		ft_find(char c, char *s)
+int			ft_find(char c, char *s)
 {
 	int		i;
 
