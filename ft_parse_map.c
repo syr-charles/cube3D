@@ -6,7 +6,7 @@
 /*   By: charles <cdana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:38:08 by charles           #+#    #+#             */
-/*   Updated: 2020/03/03 17:23:22 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/04 11:28:15 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ char			*ft_parse_map(t_mlx *f, int fd, char *line)
 	base[0] = line;
 	if ((map_x = ft_line_length(line, base, 0)) == -1)
 		return ("First line map error\n");
-	while ((ret = ft_gnl(fd, &line)) > -1 && line[0] == '1')
+	while ((ret = ft_gnl(fd, &line)) > -1 && ft_find(line[0], " 012NSEW") == 1)
 	{
 		base[map_y++] = line;
 		if ((ret = ft_line_length(line, base, map_y - 1)) == -1)

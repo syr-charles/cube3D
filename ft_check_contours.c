@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:34:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/03 17:30:43 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/04 11:20:14 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,47 +60,33 @@ static char	*ft_find_sprites(t_mlx *f)
 	return (ft_fill_sprites(f, &sprite_x[0], &sprite_y[0]));
 }
 
-static char	*ft_bottom_check(t_mlx *f, int x, int y)
-{
-	int		i;
-
-	while (f->grid[y][x] == '1')
-		x++;
-	i = 0;
-	while (i < x)
-	{
-		if (f->grid[y][i] != '1')
-			return ("Bottom hole in map");
-		i++;
-	}
-	return (ft_find_sprites(f));
-}
-
 char		*ft_check_contours(t_mlx *f, int map_y)
 {
 	int		x;
 	int		y;
 
-	x = 0;
 	y = 0;
-	while (y < map_y - 1)
+	while (y < map_y)
 	{
-		if (f->grid[y][0] != '1')
-			return ("Left hole in map\n");
-		while (f->grid[y][x] == '1')
+		x = 0;
+		while (f->grid[y][x])
+		{
+			if (ft_find(f->grid[y][x], "02NSEW") == 1)
+			{
+				if (y == 0 || x == 0 ||
+						f->grid[y][x] == 0 || y == map_y - 1)
+					return ("Frontier 0\n");
+				if (ft_find(f->grid[y + 1][x], "012NSEW") < 1 ||
+					ft_find(f->grid[y - 1][x], "012NSEW") < 1 ||
+					ft_find(f->grid[y][x + 1], "012NSEW") < 1 ||
+					ft_find(f->grid[y][x - 1], "012NSEW") < 1)
+					return ("0 with no boundaries\n");
+			}
 			x++;
-		if (f->grid[y][x])
-			return ("Right hole in map\n");
-		x--;
-		while (x >= 0 && f->grid[y][x] == '1' && f->grid[y + 1][x] != '1')
-			x--;
-		if (x == -1 || f->grid[y][x] != '1')
-			return ("Right hole in map\n");
+		}
 		y++;
 	}
-	if (f->grid[y + 1] || y + 1 != map_y)
-		return ("Wrong end of map\n");
-	return (ft_bottom_check(f, x, y));
+	return (ft_find_sprites(f));
 }
 
 int			ft_find(char c, char *s)

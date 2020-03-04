@@ -1,0 +1,16 @@
+R 1000 1000
+
+NO ./img/greystone.png
+SO ./img/colorstone.png
+WE ./img/bluestone.png
+EA ./img/purplestone.png
+
+S ./img/barrel.png
+
+F 192,192,192
+
+C 128,128,128
+
+      1
+    1 N 1
+      1

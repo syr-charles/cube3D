@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:57:45 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/03 15:18:05 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/04 11:39:33 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	*ft_parser(t_mlx *f, int fd)
 	char	*err;
 
 	err = NULL;
-	while ((ret = ft_gnl(fd, &line)) > 0 && err == NULL && line[0] != '1')
+	while (err == NULL && (ret = ft_gnl(fd, &line)) > 0 && ft_find(line[0], " 012") < 1)
 	{
 		err = ft_parse(f, line);
 		free(line);
