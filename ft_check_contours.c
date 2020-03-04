@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:34:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/04 11:20:14 by charles          ###   ########.fr       */
+/*   Updated: 2020/03/04 12:07:07 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char		*ft_check_contours(t_mlx *f, int map_y)
 {
 	int		x;
 	int		y;
+	int		k;
 
 	y = 0;
 	while (y < map_y)
@@ -76,11 +77,10 @@ char		*ft_check_contours(t_mlx *f, int map_y)
 				if (y == 0 || x == 0 ||
 						f->grid[y][x] == 0 || y == map_y - 1)
 					return ("Frontier 0\n");
-				if (ft_find(f->grid[y + 1][x], "012NSEW") < 1 ||
-					ft_find(f->grid[y - 1][x], "012NSEW") < 1 ||
-					ft_find(f->grid[y][x + 1], "012NSEW") < 1 ||
-					ft_find(f->grid[y][x - 1], "012NSEW") < 1)
-					return ("0 with no boundaries\n");
+				k = -1;
+				while (++k < 9)
+					if (ft_find(f->grid[y - 1 + k % 3][x - 1 + k / 3], "012NSEW") < 1)
+						return ("0 with no boundaries\n");
 			}
 			x++;
 		}
