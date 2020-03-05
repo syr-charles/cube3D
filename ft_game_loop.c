@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:05:18 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/03 16:12:49 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/05 11:33:07 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static int	ft_move_character(int keycode, t_mlx *f)
 	if (keycode == 125 || keycode == 1)
 		beta = M_PI;
 	if (keycode == 0)
-		beta = -M_PI / 2;
-	if (keycode == 2)
 		beta = M_PI / 2;
+	if (keycode == 2)
+		beta = -M_PI / 2;
 	if (beta != -1)
 	{
 		new_x = f->x + cos(f->alpha + beta) * 0.1;
@@ -54,9 +54,9 @@ int			ft_key_hook(int keycode, void *param)
 	if (keycode == 53)
 		ft_terminate(f, NULL);
 	if (keycode == 123)
-		f->alpha -= 0.1;
-	if (keycode == 124)
 		f->alpha += 0.1;
+	if (keycode == 124)
+		f->alpha -= 0.1;
 	ft_move_character(keycode, f);
 	ft_draw(f);
 	return (1);

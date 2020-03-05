@@ -6,7 +6,7 @@
 /*   By: charles <cdana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:38:08 by charles           #+#    #+#             */
-/*   Updated: 2020/03/04 11:28:15 by charles          ###   ########.fr       */
+/*   Updated: 2020/03/05 11:46:23 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,17 +120,16 @@ char			*ft_parse_map(t_mlx *f, int fd, char *line)
 	base[0] = line;
 	if ((map_x = ft_line_length(line, base, 0)) == -1)
 		return ("First line map error\n");
-	while ((ret = ft_gnl(fd, &line)) > -1 && ft_find(line[0], " 012NSEW") == 1)
+	while ((ret = ft_gnl(fd, &line)) > -1 && line[0] != 0)
 	{
 		base[map_y++] = line;
 		if ((ret = ft_line_length(line, base, map_y - 1)) == -1)
 			return ("Line error\n");
 		map_x = (map_x < ret ? ret : map_x);
 	}
-	ret = (ret < 0 || line[0] != 0 ? 1 : 0);
 	free(line);
-	if (ret || !(f->grid = malloc(sizeof(char*) * (map_y + 1))))
-		return ("Parse map error\n");
+	if (!(f->grid = malloc(sizeof(char*) * (map_y + 1))))
+		return ("Malloc error\n");
 	f->grid[map_y] = NULL;
 	if (ft_parse_lines(f, base, map_x, map_y))
 		return ("Allocation error\n");

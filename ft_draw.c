@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:26:14 by cdana             #+#    #+#             */
-/*   Updated: 2020/02/27 12:13:22 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/05 11:31:38 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_draw_col(t_mlx *f, int col)
 	double	*pos;
 	int		y;
 
-	beta = atan((double)(col - f->res_x / 2) / FOV);
+	beta = -atan((double)(col - f->res_x / 2) / FOV);
 	if (!(pos = ft_find_obstacle(f, f->alpha + beta)))
 		return (0);
 	f->wall_dist[col] = pos[2];
