@@ -6,7 +6,7 @@
 /*   By: charles <cdana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:38:08 by charles           #+#    #+#             */
-/*   Updated: 2020/03/05 11:46:23 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/10 10:48:09 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,14 @@ static int		ft_line_length(char *line, char **base, int nb)
 	len = 0;
 	while (line[i])
 	{
-		if (ft_find(line[i], " 012NSEW") < 1
-		|| (line[i + 1] != ' ' && line[i + 1] != '\0'))
+		if (ft_find(line[i], " 012NSEW") < 1)
 		{
 			while (nb >= 0)
 				free(base[nb--]);
 			return (-1);
 		}
 		len++;
-		if (!line[i + 1])
-			break ;
-		i += 2;
+		i++;
 	}
 	return (len);
 }
@@ -97,9 +94,7 @@ static char		*ft_parse_lines(t_mlx *f, char **lines, int map_x, int map_y)
 		while (lines[id][i])
 		{
 			out[j++] = lines[id][i];
-			if (lines[id][i + 1] == '\0')
-				break ;
-			i += 2;
+			i++;;
 		}
 		while (j <= map_x)
 			out[j++] = '\0';
@@ -127,9 +122,10 @@ char			*ft_parse_map(t_mlx *f, int fd, char *line)
 			return ("Line error\n");
 		map_x = (map_x < ret ? ret : map_x);
 	}
+	ret = (ret < 0 || line[0] != 0 ? 1 : 0);
 	free(line);
-	if (!(f->grid = malloc(sizeof(char*) * (map_y + 1))))
-		return ("Malloc error\n");
+	if (ret || !(f->grid = malloc(sizeof(char*) * (map_y + 1))))
+		return ("Parse map error\n");
 	f->grid[map_y] = NULL;
 	if (ft_parse_lines(f, base, map_x, map_y))
 		return ("Allocation error\n");

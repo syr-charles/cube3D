@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:57:45 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/05 11:18:45 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/10 10:46:28 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,21 @@ static char	*ft_parse(t_mlx *f, char *line)
 	return (err);
 }
 
-static char	*ft_checker(t_mlx *f, char *err)
+static char	*ft_checker(t_mlx *f)
 {
-	if (err == NULL)
-	{
-		if (f->res_x < 300)
-			f->res_x = 300;
-		if (f->res_y < 300)
-			f->res_y = 300;
-		if (f->res_x > MAX_X)
-			f->res_x = MAX_X;
-		if (f->res_y > MAX_Y)
-			f->res_y = MAX_Y;
-		if (!(f->wall_dist = malloc(sizeof(double) * f->res_x)))
-			return ("Malloc error\n");
-		if (!(f->wall_angle = malloc(sizeof(double) * f->res_x)))
-			return ("Malloc error\n");
-		return (NULL);
-	}
-	return (err);
+	if (f->res_x < 300)
+		f->res_x = 300;
+	if (f->res_y < 300)
+		f->res_y = 300;
+	if (f->res_x > MAX_X)
+		f->res_x = MAX_X;
+	if (f->res_y > MAX_Y)
+		f->res_y = MAX_Y;
+	if (!(f->wall_dist = malloc(sizeof(double) * f->res_x)))
+		return ("Malloc error\n");
+	if (!(f->wall_angle = malloc(sizeof(double) * f->res_x)))
+		return ("Malloc error\n");
+	return (NULL);
 }
 
 static char	*ft_parser(t_mlx *f, int fd)
@@ -66,26 +62,26 @@ static char	*ft_parser(t_mlx *f, int fd)
 	char	*err;
 
 	err = NULL;
-	while (err == NULL && (ret = ft_gnl(fd, &line)) > 0
-						&& ft_find(line[0], " 012") < 1)
+	while ((ret = ft_gnl(fd, &line)) > 0 && err == NULL && ft_find(line[0], " 012") < 1)
 	{
 		err = ft_parse(f, line);
 		free(line);
 	}
-	if (ret < 0)
-		return ("Can't read from file\n");
-	if (err)
-		return (err);
+	err = (ret < 0 ? "Can't read from file !\n" : err);
 	if (!f->res_x || !f->res_y || !f->floor_color || !f->ceil_color
 		|| !f->wall[0] || !f->wall[1] || !f->wall[2] || !f->wall[3] || !f->s)
-		return ("Incomplete .cub \n");
-	err = ft_parse_map(f, fd, line);
-	while ((ret = ft_gnl(fd, &line)) > 0 && line[0] == '\0')
+		err = (err == NULL ? "Incomplete .cub\n" : err);
+	if (err && ret >= 0)
 		free(line);
-	if (line[0] != '\0')
-		err = (err == NULL ? "Extra non empty line after map\n" : err);
+	err = (err == NULL ? ft_parse_map(f, fd, line) : err);
+	while ((ret = ft_gnl(fd, &line)) > 0 && err == NULL && line[0] == '\0')
+		free(line);
+	if (err == NULL && line[0] != '\0')
+		err = "Extra non empty line after map\n";
 	free(line);
-	return (ft_checker(f, err));
+	if (err)
+		return (err);
+	return (ft_checker(f));
 }
 
 static int	ft_mlx_init(t_mlx *f, char **argv, int fd)

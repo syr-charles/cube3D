@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 10:56:21 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/05 11:46:13 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/10 10:12:43 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int			ft_terminate(t_mlx *f, char *err)
 		ft_free_mlx(f);
 		free(f);
 	}
-	exit(err == NULL ? EXIT_SUCCESS : EXIT_FAILURE);
+	system("leaks cub3d");
+	exit(EXIT_SUCCESS);
 	return (1);
 }
 
@@ -108,8 +109,8 @@ int			ft_init(t_mlx *f)
 	f->y = 0;
 	f->sprite_x = NULL;
 	f->sprite_y = NULL;
-	f->res_x = -1;
-	f->floor_color = -1;
-	f->ceil_color = -1;
+	f->res_x = 0;
+	f->floor_color = 0;
+	f->ceil_color = 0;
 	return (1);
 }

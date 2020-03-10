@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 12:19:21 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/03 16:17:40 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/10 10:16:14 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*ft_parse_r(t_mlx *f, char *line)
 {
 	int		i;
 
-	if (line[0] == '\0' || line[0] != 'R' || f->res_x != -1)
+	if (line[0] == '\0' || line[0] != 'R' || f->res_x != 0)
 		return ("Wrong call\n");
 	i = 1;
 	f->res_x = ft_atoi(line, &i);
@@ -60,27 +60,26 @@ char		*ft_parse_f(t_mlx *f, char *line)
 	int		i;
 	int		col[3];
 
-	if (line[0] == '\0' || line[0] != 'F' || f->floor_color != -1)
+	if (line[0] == '\0' || line[0] != 'F' || f->floor_color != 0)
 		return ("Wrong call\n");
 	i = 1;
 	col[0] = ft_atoi(line, &i);
 	if (col[0] < 0 || col[0] > 255)
 		return ("Wrong value floor red\n");
-	if (line[i] != ',')
+	if (line[i++] != ',')
 		return ("Wrong delimiter floor\n");
-	i++;
 	col[1] = ft_atoi(line, &i);
 	if (col[1] < 0 || col[1] > 255)
 		return ("Wrong value floor green\n");
-	if (line[i] != ',')
+	if (line[i++] != ',')
 		return ("Wrong delimiter floor\n");
-	i++;
 	col[2] = ft_atoi(line, &i);
 	if (col[2] < 0 || col[2] > 255)
 		return ("Wrong value floor blue\n");
 	if (line[i])
 		return ("Wrong format\n");
 	f->floor_color = ft_rgb(0, col[0], col[1], col[2]);
+	f->floor_color = (f->floor_color == 0 ? 1 : f->floor_color);
 	return (NULL);
 }
 
@@ -89,26 +88,25 @@ char		*ft_parse_c(t_mlx *f, char *line)
 	int		i;
 	int		col[3];
 
-	if (line[0] == '\0' || line[0] != 'C' || f->ceil_color != -1)
+	if (line[0] == '\0' || line[0] != 'C' || f->ceil_color != 0)
 		return ("Wrong call\n");
 	i = 1;
 	col[0] = ft_atoi(line, &i);
 	if (col[0] < 0 || col[0] > 255)
 		return ("Wrong value ceil red\n");
-	if (line[i] != ',')
+	if (line[i++] != ',')
 		return ("Wrong delimiter ceil\n");
-	i++;
 	col[1] = ft_atoi(line, &i);
 	if (col[1] < 0 || col[1] > 255)
 		return ("Wrong value ceil green\n");
-	if (line[i] != ',')
+	if (line[i++] != ',')
 		return ("Wrong delimiter ceil\n");
-	i++;
 	col[2] = ft_atoi(line, &i);
 	if (col[2] < 0 || col[2] > 255)
 		return ("Wrong value ceil blue\n");
 	if (line[i])
 		return ("Wrong format\n");
 	f->ceil_color = ft_rgb(0, col[0], col[1], col[2]);
+	f->ceil_color = (f->ceil_color == 0 ? 1 : f->ceil_color);
 	return (NULL);
 }
