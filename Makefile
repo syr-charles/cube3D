@@ -10,7 +10,7 @@
 #                                                             #
 # *********************************************************** #
 
-NAME	= cub3d
+NAME	= cub3D
 SRCS	= ft_launcher.c		\
 		ft_gnl.c			\
 		ft_draw.c			\

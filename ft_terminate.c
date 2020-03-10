@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 10:56:21 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/10 10:12:43 by charles          ###   ########.fr       */
+/*   Updated: 2020/03/10 16:28:00 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int			ft_terminate(t_mlx *f, char *err)
 		ft_free_mlx(f);
 		free(f);
 	}
-	system("leaks cub3d");
 	exit(EXIT_SUCCESS);
 	return (1);
 }

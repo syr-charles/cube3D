@@ -6,7 +6,7 @@
 /*   By: charles <cdana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:38:08 by charles           #+#    #+#             */
-/*   Updated: 2020/03/10 10:48:09 by charles          ###   ########.fr       */
+/*   Updated: 2020/03/10 16:30:09 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ static char		*ft_check_map(t_mlx *f, int map_y)
 			{
 				if (f->x != 0 && f->y != 0)
 					return ("Double initial position\n");
-				f->x = x + 0.5;
-				f->y = y + 0.5;
+				f->x = x + 0.500001;
+				f->y = y + 0.499998;
 				f->alpha = ft_find_alpha(f->grid[y][x]);
 			}
 			x++;
