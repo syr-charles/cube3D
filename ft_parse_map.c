@@ -6,7 +6,7 @@
 /*   By: charles <cdana@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:38:08 by charles           #+#    #+#             */
-/*   Updated: 2020/03/10 16:30:09 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/10 20:01:34 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static char		*ft_parse_lines(t_mlx *f, char **lines, int map_x, int map_y)
 		while (lines[id][i])
 		{
 			out[j++] = lines[id][i];
-			i++;;
+			i++;
 		}
 		while (j <= map_x)
 			out[j++] = '\0';

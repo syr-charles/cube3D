@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:57:45 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/10 10:46:28 by charles          ###   ########.fr       */
+/*   Updated: 2020/03/10 20:00:31 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static char	*ft_parse(t_mlx *f, char *line)
 		err = ft_parse_c(f, line);
 	else if (line[0] != '\0')
 		err = "Undefined line\n";
+	free(line);
 	return (err);
 }
 
@@ -62,11 +63,9 @@ static char	*ft_parser(t_mlx *f, int fd)
 	char	*err;
 
 	err = NULL;
-	while ((ret = ft_gnl(fd, &line)) > 0 && err == NULL && ft_find(line[0], " 012") < 1)
-	{
+	while ((ret = ft_gnl(fd, &line)) > 0 && err == NULL &&
+			ft_find(line[0], " 012") < 1)
 		err = ft_parse(f, line);
-		free(line);
-	}
 	err = (ret < 0 ? "Can't read from file !\n" : err);
 	if (!f->res_x || !f->res_y || !f->floor_color || !f->ceil_color
 		|| !f->wall[0] || !f->wall[1] || !f->wall[2] || !f->wall[3] || !f->s)
