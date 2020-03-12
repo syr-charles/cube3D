@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 19:36:07 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/10 19:59:08 by cdana            ###   ########.fr       */
+/*   Updated: 2020/03/12 11:29:13 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,21 @@ static int		ft_draw_sprite_col(t_mlx *f, int col, int i)
 {
 	int		y;
 	int		pxl;
+	double	lbd;
 	double	dx;
 	double	dy;
 
-	dx = atan(tan(f->sp_an[f->od[i]] - f->alpha) -
-	tan(f->wall_angle[col] - f->alpha)) * cos(f->sp_an[f->od[i]] - f->alpha);
+	lbd = cos(f->sp_an[f->od[i]] - f->alpha);
+	dx = atan(tan(f->sp_an[f->od[i]] - f->alpha) - 
+			tan(f->wall_angle[col] - f->alpha)) * lbd;
 	if (fabs(ft_circle(f->sp_an[f->od[i]] - f->alpha)) < M_PI / 2 - 0.2 &&
-				(dx = 0.5 + dx * f->sp_dt[f->od[i]]) >= 0 && dx <= 1)
+		lbd > 0.314 && (dx = 0.5 + dx * f->sp_dt[f->od[i]]) >= 0 && dx <= 1)
 	{
 		y = 0;
 		while (y < f->res_y)
 		{
-			dy = 0.5 + 0.0020 * f->sp_dt[f->od[i]] *
-			(y - f->res_y / 2) * cos(f->sp_an[f->od[i]] - f->alpha);
+			dy = 0.5 + 0.0020 * f->sp_dt[f->od[i]] * 
+				(y - f->res_y / 2) * lbd;
 			if (dy >= 0 && dy <= 1)
 				if ((pxl = f->s_ptr[(int)(f->s_width * dx)
 					+ f->s_sl * (int)(f->s_height * dy)]) != 0)
