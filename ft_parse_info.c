@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 12:19:21 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/10 10:16:14 by charles          ###   ########.fr       */
+/*   Updated: 2020/07/28 09:11:20 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*ft_parse_r(t_mlx *f, char *line)
 {
 	int		i;
 
-	if (line[0] == '\0' || line[0] != 'R' || f->res_x != 0)
+	if (line[0] == '\0' || line[0] != 'R' || f->res_x != 0 || f->next != 'R')
 		return ("Wrong call\n");
 	i = 1;
 	f->res_x = ft_atoi(line, &i);
@@ -52,6 +52,7 @@ char		*ft_parse_r(t_mlx *f, char *line)
 		f->res_y = MAX_Y;
 	if (line[i])
 		return ("Wrong format\n");
+	f->next = 'N';
 	return (NULL);
 }
 
@@ -60,7 +61,7 @@ char		*ft_parse_f(t_mlx *f, char *line)
 	int		i;
 	int		col[3];
 
-	if (line[0] == '\0' || line[0] != 'F' || f->floor_color != 0)
+	if (f->next != 'F' || line[0] != 'F' || f->floor_color != 0)
 		return ("Wrong call\n");
 	i = 1;
 	col[0] = ft_atoi(line, &i);
@@ -80,6 +81,7 @@ char		*ft_parse_f(t_mlx *f, char *line)
 		return ("Wrong format\n");
 	f->floor_color = ft_rgb(0, col[0], col[1], col[2]);
 	f->floor_color = (f->floor_color == 0 ? 1 : f->floor_color);
+	f->next = 'C';
 	return (NULL);
 }
 
@@ -88,7 +90,7 @@ char		*ft_parse_c(t_mlx *f, char *line)
 	int		i;
 	int		col[3];
 
-	if (line[0] == '\0' || line[0] != 'C' || f->ceil_color != 0)
+	if (f->next != 'C' || line[0] != 'C' || f->ceil_color != 0)
 		return ("Wrong call\n");
 	i = 1;
 	col[0] = ft_atoi(line, &i);
@@ -108,5 +110,6 @@ char		*ft_parse_c(t_mlx *f, char *line)
 		return ("Wrong format\n");
 	f->ceil_color = ft_rgb(0, col[0], col[1], col[2]);
 	f->ceil_color = (f->ceil_color == 0 ? 1 : f->ceil_color);
+	f->next = 'M';
 	return (NULL);
 }

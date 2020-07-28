@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 09:57:45 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/10 20:00:31 by cdana            ###   ########.fr       */
+/*   Updated: 2020/07/28 09:04:46 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int			main(int argc, char **argv)
 		return (ft_terminate(f, "First malloc error\n"));
 	ft_init(f);
 	f->type = 'G';
+	f->next = 'R';
 	if (argc == 3 && argv[2][0] == '-' && argv[2][1] == '-' && argv[2][2] == 's'
 			&& argv[2][3] == 'a' && argv[2][4] == 'v' && argv[2][5] == 'e'
 			&& argv[2][6] == 0)

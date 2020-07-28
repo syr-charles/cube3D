@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:27:05 by cdana             #+#    #+#             */
-/*   Updated: 2020/03/03 16:31:01 by cdana            ###   ########.fr       */
+/*   Updated: 2020/07/28 09:04:06 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 typedef struct	s_mlx
 {
 	char		type;
+	char		next;
 	int			res_x;
 	int			res_y;
 	void		*mlx;
