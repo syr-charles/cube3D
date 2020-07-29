@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 19:36:07 by cdana             #+#    #+#             */
-/*   Updated: 2020/07/29 10:10:17 by cdana            ###   ########.fr       */
+/*   Updated: 2020/07/29 10:21:49 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,12 @@ static int		ft_draw_sprite_col(t_mlx *f, int col, int i)
 	dx = atan(tan(f->sp_an[f->od[i]] - f->alpha) -
 			tan(f->wall_angle[col] - f->alpha)) * lbd;
 	if (fabs(ft_circle(f->sp_an[f->od[i]] - f->alpha)) < M_PI / 2 - 0.2 &&
-		lbd > 0.42 && (dx = 0.5 + dx * f->sp_dt[f->od[i]]) >= 0 && dx <= 0.95)
+		lbd > 0.42 && (dx = 0.5 + dx * f->sp_dt[f->od[i]]) >= 0 && dx <= 0.99)
 	{
 		y = 0;
 		while (y < f->res_y)
 		{
-			dy = 0.5 + 0.0020 * f->sp_dt[f->od[i]] *
+			dy = 0.5 + 0.00125 * f->sp_dt[f->od[i]] *
 				(y - f->res_y / 2) * lbd;
 			if (dy >= 0 && dy <= 1)
 				if ((pxl = f->s_ptr[(int)(f->s_width * dx)

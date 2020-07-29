@@ -6,7 +6,7 @@
 /*   By: cdana <cdana@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:27:05 by cdana             #+#    #+#             */
-/*   Updated: 2020/07/29 10:13:23 by cdana            ###   ########.fr       */
+/*   Updated: 2020/07/29 10:19:00 by cdana            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define BUFFER_SIZE 100
 # define MAX_X 2560
 # define MAX_Y 1440
-# define FOV 500
-# define HEIGHT 250
+# define FOV 800
+# define HEIGHT 400
 # define EA 0
 # define NO 1
 # define WE 2
